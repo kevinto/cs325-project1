@@ -1,6 +1,6 @@
 /**************************************************************
  * *  Filename: divideandconquer.c
- * *  Coded by: 
+ * *  Coded by: Kevin To
  * *  Purpose - 
  * *
  * ***************************************************************/
@@ -8,9 +8,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "filefunctions.h"
 
 // Program entry point
 int main()
 {
-   printf("hello from divideandconquer\n");
+	outputFile();
 }
