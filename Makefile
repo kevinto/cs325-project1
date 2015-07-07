@@ -3,7 +3,7 @@
 # # Description: A makefile for CS325 Project 1.
 # #########################################################
 
-CXX = gcc
+CXX = gcc -std=c99 
 
 SRC1 = enumeration.c
 SRC2 = betterenum.c
@@ -23,16 +23,16 @@ HEADERS = ${HEADER1}
 all: program1 program2 program3 program4
 
 program1: ${SRC1}
-	gcc ${SRC1} ${SRC5} ${HEADERS} -o ${PROG1}  
+	${CXX} ${SRC1} ${SRC5} ${HEADERS} -o ${PROG1}  
 
 program2: ${SRC2}
-	gcc ${SRC2} ${SRC5} ${HEADERS} -o ${PROG2}  
+	${CXX} ${SRC2} ${SRC5} ${HEADERS} -o ${PROG2}  
 
 program3: ${SRC3}
-	gcc ${SRC3} ${SRC5} ${HEADERS} -o ${PROG3}  
+	${CXX} ${SRC3} ${SRC5} ${HEADERS} -o ${PROG3}  
 
 program4: ${SRC4}
-	gcc ${SRC4} ${SRC5} ${HEADERS} -o ${PROG4}  
+	${CXX} ${SRC4} ${SRC5} ${HEADERS} -o ${PROG4}  
 
 clean:
 	rm -rf ${PROGS}
