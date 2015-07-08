@@ -5,7 +5,6 @@
 #include <assert.h>
 #include "filefunctions.h"
 
-// TODO
 void fillIntArray(char *inputFileName, int inputLineNumber, int *inputArray, int numberOfElements)
 {
 	// printf("you are on line: %d\n", inputLineNumber);
@@ -14,23 +13,18 @@ void fillIntArray(char *inputFileName, int inputLineNumber, int *inputArray, int
 	char stringValue[MAX_INPUT_LINE_SIZE];
 	getLineFromFile(inputFileName, inputLineNumber, stringValue);
 
-	// TODO
-	// int stringLen = strlen(stringValue);
-	// for (i = 0; i < stringLen; i++)
-	// {
-	// 	if (stringValue[i] == 0)
-	// 	{
-	// 		break;
-	// 	}
+	/* Establish string and get the first token: */
+	int currentNumber;
+	int currentInputArrayIdx = 0;
+	char *token = strtok(stringValue, ",[]");
+	while ( token != 0 )
+	{
+		sscanf(token, "%d", &currentNumber);
+		inputArray[currentInputArrayIdx++] = currentNumber;
 
-	// 	if (stringValue[i] == ',')
-	// 	{
-	// 		// numberOfCommas++;
-	// 	}
-	// }
-
-	// displayIntArray(inputArray, numberOfElements);
-	// printf("\n");
+		/* Get next token: */
+		token = strtok(0, ",[]");
+	}
 }
 
 int getNumberOfElementsInLine(char *inputFileName, int inputLineNumber)
