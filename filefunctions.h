@@ -13,5 +13,7 @@ void initializeIntArray(int *intArray, int numberofElements);
 void displayIntArray(int *intArray, int numberOfElements);
 void fillIntArray(char *inputFileName, int inputLineNumber, int *inputArray, int numberOfElements);
 int getNumberOfElementsInLine(char *inputFileName, int inputLineNumber);
+void RemoveNewLineAndAddNullTerm(char *stringValue);
+int countElementsInString(char *stringValue);
 
 #endif

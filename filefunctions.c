@@ -1,10 +1,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <assert.h>
 #include "filefunctions.h"
 
 int getNumberOfElementsInLine(char *inputFileName, int inputLineNumber)
 {
+	int numberOfElements = 0;
 	FILE *fp;
 	fp = fopen(inputFileName, "r");
 
@@ -30,14 +33,46 @@ int getNumberOfElementsInLine(char *inputFileName, int inputLineNumber)
 			lineNumber++;
 		}
 
-		printf("%s\n", line);
-		
+		RemoveNewLineAndAddNullTerm(line);
+		// printf("%s\n", line);
+
+		numberOfElements = countElementsInString(line);
 		fclose(fp);
 	}
 
-	return 5;
+	return numberOfElements;
 }
 
+int countElementsInString(char *stringValue)
+{
+	int numberOfCommas = 0;
+	int i;
+
+	int stringLen = strlen(stringValue);
+	for (i = 0; i < stringLen; i++)
+	{
+		if (stringValue[i] == 0)
+		{
+			break;
+		}
+
+		if (stringValue[i] == ',')
+		{
+			numberOfCommas++;
+		}
+	}
+
+	if (numberOfCommas == 0)
+	{
+		return 1;
+	}
+	else
+	{
+		return numberOfCommas + 1;
+	}
+}
+
+// TODO
 void fillIntArray(char *inputFileName, int inputLineNumber, int *inputArray, int numberOfElements)
 {
 	printf("you are on line: %d\n", inputLineNumber);
@@ -119,5 +154,26 @@ void displayIntArray(int *intArray, int numberOfElements)
 	for (i = 0; i < numberOfElements; i++)
 	{
 		printf("%d ", intArray[i]);
+	}
+}
+
+/**************************************************************
+ * * Entry:
+ * *  stringValue - the string you want to transform
+ * *
+ * * Exit:
+ * *  n/a
+ * *
+ * * Purpose:
+ * *  Removes the new line character from the string and adds a null
+ * *  terminator in its place.
+ * *
+ * ***************************************************************/
+void RemoveNewLineAndAddNullTerm(char *stringValue)
+{
+	size_t ln = strlen(stringValue) - 1;
+	if (stringValue[ln] == '\n')
+	{
+		stringValue[ln] = '\0';
 	}
 }

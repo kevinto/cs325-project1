@@ -23,6 +23,7 @@ int main()
 	for (i = 0; i < numberOfLines; i++)
 	{
 		numberOfElements = getNumberOfElementsInLine(inputFileName, i);
+		// printf("number of elements: %d\n", numberOfElements);
 		int *inputArray = malloc(numberOfElements * sizeof(int));
 
 		// Fill the input array with the numbers from line i in the file
