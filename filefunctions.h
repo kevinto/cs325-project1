@@ -8,8 +8,8 @@
 
 void displayFile();
 int numberOfLinesInFile(char *fileName);
-void initializeIntArray(int **intArray, int numberOfRows, int numberofColumns);
-void displayIntArray(int **intArray, int numberOfRows, int numberofColumns);
-void FillIntArray(char *inputFileName, int **inputArray, int numberOfRows);
+void initializeIntArray(int *intArray, int numberofElements);
+void displayIntArray(int *intArray, int numberOfElements);
+void FillIntArray(char *inputFileName, int inputLineNumber, int *inputArray, int numberOfElements);
 
 #endif

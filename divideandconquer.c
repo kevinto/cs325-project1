@@ -13,27 +13,28 @@
 // Program entry point
 int main()
 {
-	// Get number of arrays to parse
+	int i;
+	int numberOfElements = 0;
 	char *inputFileName = "MSS_Problems.txt";
 	int numberOfLines = numberOfLinesInFile(inputFileName);
-	// TODO: Get number of elements
 
-	// Allocate space for the array of inputs
-	int **inputArray = (int **)malloc(numberOfLines * sizeof(int *));
-	int i;
+	// TODO: Get number of elements per line
+
 	for (i = 0; i < numberOfLines; i++)
 	{
-		inputArray[i] = (int *)malloc(MAX_INT_ELEMENTS * sizeof(int *));
+		numberOfElements = 10;
+		int *inputArray = malloc(numberOfElements * sizeof(int));
+
+		// Fill the input array with the numbers from line i in the file
+		FillIntArray(inputFileName, i, inputArray, numberOfElements);
+
+		// Cleanup dynamically allocated strings
+		free(inputArray);
+		// printf("\n");
 	}
 
-	FillIntArray(inputFileName, inputArray, numberOfLines);
+	// FillIntArray(inputFileName, inputArray, numberOfLines);
 
-	// Cleanup dynamically allocated strings
-	for (i = 0; i < numberOfLines; i++)
-	{
-		free(inputArray[i]);
-	}
-	free(inputArray);
 }
 
 void executeAlgorithm()

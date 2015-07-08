@@ -3,22 +3,22 @@
 #include <stdlib.h>
 #include "filefunctions.h"
 
-void FillIntArray(char *inputFileName, int **inputArray, int numberOfRows)
+void FillIntArray(char *inputFileName, int inputLineNumber, int *inputArray, int numberOfElements)
 {
-	initializeIntArray(inputArray, numberOfRows, MAX_INT_ELEMENTS);
-	displayIntArray(inputArray, numberOfRows, MAX_INT_ELEMENTS);
+	// printf("you are on line: %d\n", inputLineNumber);
+	initializeIntArray(inputArray, numberOfElements);
+
+	// displayIntArray(inputArray, numberOfElements);
+	// printf("\n");
 }
 
-void initializeIntArray(int **intArray, int numberOfRows, int numberofColumns)
+// Sets all elements in the array to zero
+void initializeIntArray(int *intArray, int numberofElements)
 {
-	// Cleanup dynamically allocated strings
 	int i, j;
-	for (i = 0; i < numberOfRows; i++)
+	for (i = 0; i < numberofElements; i++)
 	{
-		for (j = 0; j < numberofColumns; j++)
-		{
-			intArray[i][j] = 0;
-		}
+		intArray[i] = 0;
 	}
 }
 
@@ -78,16 +78,11 @@ void displayFile()
 }
 
 // For debug purposes
-void displayIntArray(int **intArray, int numberOfRows, int numberofColumns)
+void displayIntArray(int *intArray, int numberOfElements)
 {
-	// Cleanup dynamically allocated strings
-	int i, j;
-	for (i = 0; i < numberOfRows; i++)
+	int i;
+	for (i = 0; i < numberOfElements; i++)
 	{
-		for (j = 0; j < numberofColumns; j++)
-		{
-			printf("%d ", intArray[i][j]);
-		}
-		printf("\n");
+		printf("%d ", intArray[i]);
 	}
 }
