@@ -5,6 +5,65 @@
 #include <assert.h>
 #include "filefunctions.h"
 
+/**************************************************************
+ * * Entry:
+ * *  resultArray - the int array of the algorithm result
+ * *  resultArraySize - the result array size
+ * *  originalArray - the original int array containing all the values
+ * *  originalArraySize - the original array size
+ * *
+ * * Exit:
+ * *  n/a
+ * *
+ * * Purpose:
+ * *  Outputs the original array, the result array, and the sum of 
+ * *  result array into MSS_Results.txt
+ * *
+ * ***************************************************************/
+void outputResultToFile(int *resultArray, int resultArraySize, int *originalArray, int originalArraySize)
+{
+	FILE *outputFile = fopen("MSS_Results.txt", "a");
+
+	// Output the original input array
+	fprintf(outputFile, "%c", '[');
+	int i;
+	for (i = 0; i < originalArraySize; ++i)
+	{
+		// Do not write comma if first element
+		if (i != 0)
+		{
+			fprintf(outputFile, "%s", ", ");
+		}
+		fprintf(outputFile, "%d", originalArray[i]);
+	}
+
+	fprintf(outputFile, "%c", ']');
+	fprintf(outputFile, "%c", '\n');
+
+	// Output the max sequence
+	fprintf(outputFile, "%c", '[');
+	int resultArraySum = 0;
+	for (i = 0; i < resultArraySize; ++i)
+	{
+		// Do not write comma if first element
+		if (i != 0)
+		{
+			fprintf(outputFile, "%s", ", ");
+		}
+		fprintf(outputFile, "%d", resultArray[i]);
+		resultArraySum += resultArray[i];
+	}
+
+	fprintf(outputFile, "%c", ']');
+	fprintf(outputFile, "%c", '\n');
+
+	// Output the sum of the result array
+	fprintf(outputFile, "%d", resultArraySum);
+	fprintf(outputFile, "%s", "\n\n");
+
+	fclose(outputFile);
+}
+
 void fillIntArray(char *inputFileName, int inputLineNumber, int *inputArray, int numberOfElements)
 {
 	// printf("you are on line: %d\n", inputLineNumber);

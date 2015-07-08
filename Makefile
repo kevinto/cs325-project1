@@ -35,4 +35,4 @@ program4: ${SRC4}
 	${CXX} ${SRC4} ${SRC5} ${HEADERS} -o ${PROG4}  
 
 clean:
-	rm -rf ${PROGS}
+	rm -rf ${PROGS} MSS_Results.txt

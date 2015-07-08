@@ -33,16 +33,20 @@ int main()
 		// Cleanup dynamically allocated strings
 		free(inputArray);
 	}
-
-	// FillIntArray(inputFileName, inputArray, numberOfLines);
-
 }
 
 void executeAlgorithm(int *inputArray, int numberOfElements)
 {
 	// Write code here.
 
+	// Output the result to results file
+	int resultArray[3]; // This is a sample array
+	resultArray[0] = 1;
+	resultArray[1] = 2;
+	resultArray[2] = 3;
+	outputResultToFile(resultArray, 3, inputArray, numberOfElements);
+
 	// This code is just to debug. Remove if ready
-	displayIntArray(inputArray, numberOfElements);
-	printf("\n");
+	// displayIntArray(inputArray, numberOfElements);
+	// printf("\n");
 }
