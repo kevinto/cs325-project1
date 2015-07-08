@@ -22,11 +22,11 @@ int main()
 
 	for (i = 0; i < numberOfLines; i++)
 	{
-		numberOfElements = 10;
+		numberOfElements = getNumberOfElementsInLine(inputFileName, i);
 		int *inputArray = malloc(numberOfElements * sizeof(int));
 
 		// Fill the input array with the numbers from line i in the file
-		FillIntArray(inputFileName, i, inputArray, numberOfElements);
+		// fillIntArray(inputFileName, i, inputArray, numberOfElements);
 
 		// Cleanup dynamically allocated strings
 		free(inputArray);

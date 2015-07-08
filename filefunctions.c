@@ -3,13 +3,48 @@
 #include <stdlib.h>
 #include "filefunctions.h"
 
-void FillIntArray(char *inputFileName, int inputLineNumber, int *inputArray, int numberOfElements)
+int getNumberOfElementsInLine(char *inputFileName, int inputLineNumber)
 {
-	// printf("you are on line: %d\n", inputLineNumber);
+	FILE *fp;
+	fp = fopen(inputFileName, "r");
+
+	if (fp == 0)
+	{
+		perror("Failed to open file: MSS_Problems.txt");
+	}
+	else
+	{
+		int lineNumber = 0;
+		char line[MAX_INPUT_LINE_SIZE]; /* or other suitable maximum line size */
+
+		while (fgets(line, sizeof(line), fp) != 0) /* read a line */
+		{
+			// fputs(line, stdout); /* write the line */
+			// printf("%s\n", line);
+
+			// Break the loop if we are at the line we want
+			if (lineNumber == inputLineNumber)
+			{
+				break;
+			}
+			lineNumber++;
+		}
+
+		printf("%s\n", line);
+		
+		fclose(fp);
+	}
+
+	return 5;
+}
+
+void fillIntArray(char *inputFileName, int inputLineNumber, int *inputArray, int numberOfElements)
+{
+	printf("you are on line: %d\n", inputLineNumber);
 	initializeIntArray(inputArray, numberOfElements);
 
-	// displayIntArray(inputArray, numberOfElements);
-	// printf("\n");
+	displayIntArray(inputArray, numberOfElements);
+	printf("\n");
 }
 
 // Sets all elements in the array to zero
