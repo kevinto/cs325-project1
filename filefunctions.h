@@ -15,5 +15,6 @@ void fillIntArray(char *inputFileName, int inputLineNumber, int *inputArray, int
 int getNumberOfElementsInLine(char *inputFileName, int inputLineNumber);
 void RemoveNewLineAndAddNullTerm(char *stringValue);
 int countElementsInString(char *stringValue);
+void getLineFromFile(char *inputFileName, int inputLineNumber, char *stringValue);
 
 #endif

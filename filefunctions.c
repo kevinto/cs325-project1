@@ -5,6 +5,34 @@
 #include <assert.h>
 #include "filefunctions.h"
 
+// TODO
+void fillIntArray(char *inputFileName, int inputLineNumber, int *inputArray, int numberOfElements)
+{
+	// printf("you are on line: %d\n", inputLineNumber);
+	initializeIntArray(inputArray, numberOfElements);
+
+	char stringValue[MAX_INPUT_LINE_SIZE];
+	getLineFromFile(inputFileName, inputLineNumber, stringValue);
+
+	// TODO
+	// int stringLen = strlen(stringValue);
+	// for (i = 0; i < stringLen; i++)
+	// {
+	// 	if (stringValue[i] == 0)
+	// 	{
+	// 		break;
+	// 	}
+
+	// 	if (stringValue[i] == ',')
+	// 	{
+	// 		// numberOfCommas++;
+	// 	}
+	// }
+
+	// displayIntArray(inputArray, numberOfElements);
+	// printf("\n");
+}
+
 int getNumberOfElementsInLine(char *inputFileName, int inputLineNumber)
 {
 	int numberOfElements = 0;
@@ -43,6 +71,42 @@ int getNumberOfElementsInLine(char *inputFileName, int inputLineNumber)
 	return numberOfElements;
 }
 
+void getLineFromFile(char *inputFileName, int inputLineNumber, char *stringValue)
+{
+	int numberOfElements = 0;
+	FILE *fp;
+	fp = fopen(inputFileName, "r");
+
+	if (fp == 0)
+	{
+		perror("Failed to open file: MSS_Problems.txt");
+	}
+	else
+	{
+		int lineNumber = 0;
+		char line[MAX_INPUT_LINE_SIZE]; /* or other suitable maximum line size */
+
+		while (fgets(line, sizeof(line), fp) != 0) /* read a line */
+		{
+			// fputs(line, stdout); /* write the line */
+			// printf("%s\n", line);
+
+			// Break the loop if we are at the line we want
+			if (lineNumber == inputLineNumber)
+			{
+				break;
+			}
+			lineNumber++;
+		}
+
+		RemoveNewLineAndAddNullTerm(line);
+		strncpy(stringValue, line, MAX_INPUT_LINE_SIZE);
+		// printf("%s\n", line);
+
+		fclose(fp);
+	}
+}
+
 int countElementsInString(char *stringValue)
 {
 	int numberOfCommas = 0;
@@ -70,16 +134,6 @@ int countElementsInString(char *stringValue)
 	{
 		return numberOfCommas + 1;
 	}
-}
-
-// TODO
-void fillIntArray(char *inputFileName, int inputLineNumber, int *inputArray, int numberOfElements)
-{
-	printf("you are on line: %d\n", inputLineNumber);
-	initializeIntArray(inputArray, numberOfElements);
-
-	displayIntArray(inputArray, numberOfElements);
-	printf("\n");
 }
 
 // Sets all elements in the array to zero

@@ -27,7 +27,7 @@ int main()
 		int *inputArray = malloc(numberOfElements * sizeof(int));
 
 		// Fill the input array with the numbers from line i in the file
-		// fillIntArray(inputFileName, i, inputArray, numberOfElements);
+		fillIntArray(inputFileName, i, inputArray, numberOfElements);
 
 		// Cleanup dynamically allocated strings
 		free(inputArray);
