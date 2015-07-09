@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+#include <unistd.h>
 #include "filefunctions.h"
 
 typedef struct {
@@ -22,73 +24,79 @@ void write_to_file(int input_array[], int input_end_index, int max_start_index,
 
 
 int main() {
-		//Read data from file and store in array
-		int i;
-		int numberOfElements = 0;
-		char *inputFileName = "MSS_Problems.txt";
-		int numberOfLines = numberOfLinesInFile(inputFileName);
-		
-		for (i = 0; i < numberOfLines; i++)
-		{
-		    numberOfElements = getNumberOfElementsInLine(inputFileName, i);
-		    int *inputArray = malloc(numberOfElements * sizeof(int));
-		
-		    //Store file data to inputArray
-		    fillIntArray(inputFileName, i, inputArray, numberOfElements);
-				
-		    //Find max sum subarray
-		    executeAlgorithm(inputArray, 0, numberOfElements);
-		
-		    //Free heap
-		    free(inputArray);
-		}
+    clock_t clock_start, clock_end;
+    double clock_time_used;
 
-		return 0;
+	int i;
+	int numberOfElements = 0;
+	char *inputFileName = "MSS_Problems.txt";
+	int numberOfLines = numberOfLinesInFile(inputFileName);
+	
+	for (i = 0; i < numberOfLines; i++) {
+    	//Read data from file and store in array
+	    numberOfElements = getNumberOfElementsInLine(inputFileName, i);
+	    int *inputArray = malloc(numberOfElements * sizeof(int));
+	
+	    //Store file data to inputArray
+	    fillIntArray(inputFileName, i, inputArray, numberOfElements);
+
+	    //Find max sum subarray
+        clock_start = clock();
+	    executeAlgorithm(inputArray, 0, numberOfElements);
+        clock_end = clock();
+        clock_time_used = ((double)(clock_end - clock_start)) / CLOCKS_PER_SEC;
+        printf("cpu used = %f\n", clock_time_used);
+	
+	    //Free heap
+	    free(inputArray);
+	}
+
+	return 0;
 }
 
 
 /******** FUNCTION DEFINTIONS ********/
 //Find max sum subarray
 void executeAlgorithm(int input_array[], int input_start_index, int input_end_index) {
-		int i;
-		int tmp_sum;
-		subarray max_subarray, parent_array;
+	int i;
+	int tmp_sum;
+	subarray max_subarray, parent_array;
 
-		max_subarray.sum = 0;
-		max_subarray.start_index = -1;
-		max_subarray.end_index = -1;
+	max_subarray.sum = 0;
+	max_subarray.start_index = -1;
+	max_subarray.end_index = -1;
 
-		parent_array.sum = 0;
-		parent_array.start_index = -1;
+	parent_array.sum = 0;
+	parent_array.start_index = -1;
 
-		for (i = input_start_index; i < input_end_index; i++) {
-				tmp_sum = parent_array.sum	+ input_array[i];
-				if (tmp_sum > 0) {
-						if (parent_array.sum == 0) {
-								parent_array.start_index = i;
-						}
-						parent_array.sum = tmp_sum;
-				}
-				else {
-						parent_array.sum = 0;
-				}	
-
-				if (parent_array.sum > max_subarray.sum) {
-						max_subarray.sum = parent_array.sum;
-						max_subarray.start_index = parent_array.start_index;
-						max_subarray.end_index = i;
-				}
+	for (i = input_start_index; i < input_end_index; i++) {
+		tmp_sum = parent_array.sum	+ input_array[i];
+		if (tmp_sum > 0) {
+			if (parent_array.sum == 0) {
+					parent_array.start_index = i;
+			}
+			parent_array.sum = tmp_sum;
 		}
+		else {
+			parent_array.sum = 0;
+		}	
 
-     // Output the result to results file
-		write_to_file(input_array, input_end_index, max_subarray.start_index, max_subarray.end_index, 
-				      max_subarray.sum);
+		if (parent_array.sum > max_subarray.sum) {
+			max_subarray.sum = parent_array.sum;
+			max_subarray.start_index = parent_array.start_index;
+			max_subarray.end_index = i;
+		}
+	}
+
+    // Output the result to results file
+    write_to_file(input_array, input_end_index, max_subarray.start_index, max_subarray.end_index, 
+        max_subarray.sum);
 }
 
 
 //Write input_array, subarray, and max to output file
 void write_to_file(int input_array[], int input_end_index, int max_start_index, 
-				   int max_end_index, int max_subarray_sum) {
+    int max_end_index, int max_subarray_sum) {
     FILE *outputFile = fopen("MSS_Results.txt", "a");
 
     //Write input_array to file 
