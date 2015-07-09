@@ -32,7 +32,7 @@ int main()
 {
 	int i;
 	int numberOfElements = 0;
-	char *inputFileName = "MSS_TestProblems.txt";
+	char *inputFileName = "MSS_Problems.txt";
 	int numberOfLines = numberOfLinesInFile(inputFileName);
 
 	// Run the algorithm for each line in the input file
@@ -48,9 +48,6 @@ int main()
 		// Cleanup dynamically allocated strings
 		free(inputArray);
 	}
-
-	// FillIntArray(inputFileName, inputArray, numberOfLines);
-
 }
 
 void executeAlgorithm(int *inputArray, int numberOfElements)
@@ -71,7 +68,8 @@ void executeAlgorithm(int *inputArray, int numberOfElements)
 		}
 	}
 	
-	// This code is just to debug. Remove if ready
-	displayIntArray(inputArray, numberOfElements);
-	printf("\ni = %d; j = %d; Sum = %d \n\n", max_i, max_j, max);
+	// Output the results to file
+	int *results = &inputArray[max_i];
+	int resultsLength = (max_j - max_i) + 1;
+	outputResultToFile(results, resultsLength, inputArray, numberOfElements);
 }

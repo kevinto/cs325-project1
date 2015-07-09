@@ -24,7 +24,7 @@ int main()
 {
 	int i;
 	int numberOfElements = 0;
-	char *inputFileName = "MSS_TestProblems.txt";
+	char *inputFileName = "MSS_Problems.txt";
 	int numberOfLines = numberOfLinesInFile(inputFileName);
 
 	// Run the algorithm for each line in the input file
@@ -40,13 +40,11 @@ int main()
 		// Cleanup dynamically allocated strings
 		free(inputArray);
 	}
-
-	// FillIntArray(inputFileName, inputArray, numberOfLines);
-
 }
 
 void executeAlgorithm(int *inputArray, int numberOfElements)
 {
+	//Calculate the maximum sum sub-array and keep track of the indices between which that sub-array is contained
 	int i, j, k, sum; //initialize index integers and sum integer for for loops
 	int max = INT_MIN; //smallest possible int value
 	int max_i = -1; //initialize i index for max sum sub-array
@@ -65,7 +63,8 @@ void executeAlgorithm(int *inputArray, int numberOfElements)
 		}
 	}	
 
-	// This code is just to debug. Remove if ready
-	displayIntArray(inputArray, numberOfElements);
-	printf("\ni = %d; j = %d; Sum = %d \n\n", max_i, max_j, max);
+	// Output the results to file
+	int *results = &inputArray[max_i];
+	int resultsLength = (max_j - max_i) + 1;
+	outputResultToFile(results, resultsLength, inputArray, numberOfElements);
 }
