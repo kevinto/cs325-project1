@@ -16,7 +16,7 @@
  * *  n/a
  * *
  * * Purpose:
- * *  Outputs the original array, the result array, and the sum of 
+ * *  Outputs the original array, the result array, and the sum of
  * *  result array into MSS_Results.txt
  * *
  * ***************************************************************/
@@ -72,13 +72,21 @@ void fillIntArray(char *inputFileName, int inputLineNumber, int *inputArray, int
 	char stringValue[MAX_INPUT_LINE_SIZE];
 	getLineFromFile(inputFileName, inputLineNumber, stringValue);
 
-	/* Establish string and get the first token: */
+	// Establish string and get the first token 
 	int currentNumber;
 	int currentInputArrayIdx = 0;
 	char *token = strtok(stringValue, ",[]");
 	while ( token != 0 )
 	{
 		sscanf(token, "%d", &currentNumber);
+
+		if (currentInputArrayIdx >= numberOfElements)
+		{
+			// printf("inputLineNumber: %d\n", inputLineNumber);
+			// printf("Error (fillIntArray): Accessing out of bounds index in array\n");
+			break;
+		}
+
 		inputArray[currentInputArrayIdx++] = currentNumber;
 
 		/* Get next token: */
@@ -217,12 +225,15 @@ int numberOfLinesInFile(char *fileName)
 		}
 	}
 
-	// This takes care of the case where the last line in the
-	// file does not end with a newline character.
-	if (ch != '\n' && numberOfLines != 0)
-	{
-		numberOfLines++;
-	}
+	// This takes care of two cases:
+	//	1. The last line of the file doesnt end with a new character
+	//	2. There is only one line in the file and this lines does not
+	//	   contain a newline character
+	// if ((ch != '\n' && numberOfLines != 0) || (ch != 0 && numberOfLines == 0 ))
+	// if ((ch != '\n' && numberOfLines != 0))
+	// {
+	// 	numberOfLines++;
+	// }
 
 	fclose(fp);
 	return numberOfLines;
@@ -258,10 +269,15 @@ void displayFile()
 void displayIntArray(int *intArray, int numberOfElements)
 {
 	int i;
+	int arrayTracker = 0;
 	for (i = 0; i < numberOfElements; i++)
 	{
 		printf("%d ", intArray[i]);
+		arrayTracker++;
 	}
+
+	printf("\n");
+	printf("displayIntArray total elements: %d\n", arrayTracker);
 }
 
 /**************************************************************
