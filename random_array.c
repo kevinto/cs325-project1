@@ -36,11 +36,14 @@ void create_random_array(int n) {
         fprintf(outputFile, "%c", '[');
 
         for (j = 0; j < n; j++) {
-        rand_num = rand() % (100 + 99) - 99;
-        if(j == 0)
-            fprintf(outputFile, "%d", rand_num);
-        else
-            fprintf(outputFile, ", %d", rand_num);
+            if(j == 0) {
+                rand_num = rand() % (100 - 1) + 1;
+                fprintf(outputFile, "%d", rand_num);
+            }
+            else {
+                rand_num = rand() % (100 + 99) - 99;
+                fprintf(outputFile, ", %d", rand_num);
+            }
         } 
         fprintf(outputFile, "%c\n", ']');
     }
