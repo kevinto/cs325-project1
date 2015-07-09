@@ -17,5 +17,7 @@ void RemoveNewLineAndAddNullTerm(char *stringValue);
 int countElementsInString(char *stringValue);
 void getLineFromFile(char *inputFileName, int inputLineNumber, char *stringValue);
 void outputResultToFile(int *resultArray, int arraysize, int *originalArray, int originalArraySize);
+void alg1_enum(int *inputArray, int numberOfElements);
+void alg2_betterEnum(int *inputArray, int numberOfElements);
 
 #endif

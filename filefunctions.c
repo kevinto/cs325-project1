@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <limits.h>
 #include "filefunctions.h"
 
 /**************************************************************
@@ -282,5 +283,45 @@ void RemoveNewLineAndAddNullTerm(char *stringValue)
 	if (stringValue[ln] == '\n')
 	{
 		stringValue[ln] = '\0';
+	}
+}
+
+void alg1_enum(int *inputArray, int numberOfElements)
+{
+	int i, j, k, sum; //initialize index integers and sum integer for for loops
+	int max = INT_MIN; //smallest possible int value
+	int max_i = -1; //initialize i index for max sum sub-array
+	int max_j = -1; //initialize j index for max sum sub-array
+	for (i = 0; i < numberOfElements; i++) {
+		for (j = i; j < numberOfElements; j++) {
+			sum = 0; //reset sum to 0 before calculating next summation between new i and j values
+			for (k = i; k <= j; k++) { //Calculate the summation of all elements in array between i and j
+				sum = sum + inputArray[k];
+			}
+			if (sum > max) { //current summation is greater than previous max
+				max = sum;
+				max_i = i;
+				max_j = j;
+			}
+		}
+	}
+}
+
+void alg2_betterEnum(int *inputArray, int numberOfElements)
+{
+	int i, j, sum; //initialize index integers and sum integer for for loops
+	int max = INT_MIN; //smallest possible int value
+	int max_i = -1; //initialize i index for max sum sub-array
+	int max_j = -1; //initialize j index for max sum sub-array
+	for (i = 0; i < numberOfElements; i++) {
+		sum = 0; //reset sum to zero when we iterate to the next starting point (i index)
+		for (j = i; j < numberOfElements; j++) {
+			sum = sum + inputArray[j];
+			if (sum > max) { //current summation is greater than previous max
+				max = sum;
+				max_i = i;
+				max_j = j;
+			}
+		}
 	}
 }
