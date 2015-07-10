@@ -28,12 +28,17 @@ int main()
 	srand(time(NULL));  //seed the random number generator
 	clock_t timer;  //initialize a variable for the timer
 	int array_rand[MAX_N];
-	int array_n_vals[] = {2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000, 22500, 25000, 27500, 30000};//{300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500};
+	// int array_n_vals[] = {2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000, 22500, 25000, 27500, 30000};//{300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500};
+
+	// Values for the divide and conquer
+	int array_n_vals[] = {1000, 2000, 3000, 4000, 6000, 8000, 10000, 15000, 20000, 30000};//{300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500};
+	// int array_n_vals[] = {35000, 40000, 45000, 50000};//{300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500};
+
 	int i, j, k;
 	
 //	FILE *outputEnum = fopen("Enum_Timing_Results.txt", "w");  //create output file for timing of algorithm 1
-	FILE *outputBetterEnum = fopen("Better_Enum_Timing_Results.txt", "w");  //create output file for timing of algorithm 2
-//	FILE *outputDivConquer = fopen("Divide_Conquer_Timing_Results.txt", "w");  //create output file for timing of algorithm 3
+	// FILE *outputBetterEnum = fopen("Better_Enum_Timing_Results.txt", "w");  //create output file for timing of algorithm 2
+	FILE *outputDivConquer = fopen("Divide_Conquer_Timing_Results.txt", "w");  //create output file for timing of algorithm 3
 //	FILE *outputLinear = fopen("Linear_Timing_Results.txt", "w");  //create output file for timing of algorithm 4
 	
 	for (i = 0; i < sizeof(array_n_vals)/sizeof(int); i++) {
@@ -42,13 +47,13 @@ int main()
 			if (j == 0) {
 				if (i == 0) {
 //					fprintf(outputEnum, "n = %d\n\n", array_n_vals[i]);
-					fprintf(outputBetterEnum, "n = %d\n\n", array_n_vals[i]);
-//					fprintf(outputDivConquer, "n = %d\n\n", array_n_vals[i]);  
+					// fprintf(outputBetterEnum, "n = %d\n\n", array_n_vals[i]);
+					fprintf(outputDivConquer, "n = %d\n\n", array_n_vals[i]);  
 //					fprintf(outputLinear, "n = %d\n\n", array_n_vals[i]);
 				} else {
 //					fprintf(outputEnum, "\n\n\nn = %d\n\n", array_n_vals[i]);
-					fprintf(outputBetterEnum, "\n\n\nn = %d\n\n", array_n_vals[i]);
-//					fprintf(outputDivConquer, "\n\n\nn = %d\n\n", array_n_vals[i]);  
+					// fprintf(outputBetterEnum, "\n\n\nn = %d\n\n", array_n_vals[i]);
+					fprintf(outputDivConquer, "\n\n\nn = %d\n\n", array_n_vals[i]);  
 //					fprintf(outputLinear, "\n\n\nn = %d\n\n", array_n_vals[i]);
 				}
 			}
@@ -69,25 +74,25 @@ int main()
 			}
 */			
 			//time algorithm 2 and record results in algorithm 2 output file
-			timer = clock();
-			alg2_betterEnum(array_rand, array_n_vals[i]);
-			timer = clock() - timer;
-			if (j == 10 - 1) {
-				fprintf(outputBetterEnum, "%f", (float)timer / (float)CLOCKS_PER_SEC);
-			} else {
-				fprintf(outputBetterEnum, "%f\n", (float)timer / (float)CLOCKS_PER_SEC);
-			}
+			// timer = clock();
+			// alg2_betterEnum(array_rand, array_n_vals[i]);
+			// timer = clock() - timer;
+			// if (j == 10 - 1) {
+			// 	fprintf(outputBetterEnum, "%f", (float)timer / (float)CLOCKS_PER_SEC);
+			// } else {
+			// 	fprintf(outputBetterEnum, "%f\n", (float)timer / (float)CLOCKS_PER_SEC);
+			// }
 			
 			//time algorithm 3 and record results in algorithm 3 output file
-/*			timer = clock();
-			alg3_divConquer(array_rand, array_n_vals[i]);
+			timer = clock();
+			alg3_divideAndConquer(array_rand, array_n_vals[i]);
 			timer = clock() - timer;
 			if (j == 10 - 1) {
 				fprintf(outputDivConquer, "%f", (float)timer / (float)CLOCKS_PER_SEC);
 			} else {
 				fprintf(outputDivConquer, "%f\n", (float)timer / (float)CLOCKS_PER_SEC);
 			}
-*/			
+			
 			//time algorithm 4 and record results in algorithm 4 output file
 /*			timer = clock();
 			alg4_linear(array_rand, array_n_vals[i]);
@@ -103,7 +108,7 @@ int main()
 	
 	//close output files
 //	fclose(outputEnum);
-	fclose(outputBetterEnum);
-//	fclose(outputDivConquer);
+	// fclose(outputBetterEnum);
+	fclose(outputDivConquer);
 //	fclose(outputLinear);
 }

@@ -194,10 +194,7 @@ void maxCrossingSubArray(int *inputArray, int lowIdx, int midIdx, int highIdx, i
 {
 	int i;
 	int leftSum = INT_MIN;
-	int maxLeftIdx = 0;
-
 	int rightSum = INT_MIN;
-	int maxRightIdx = 0;
 
 	int currentSum = 0;
 

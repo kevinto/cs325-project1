@@ -19,5 +19,8 @@ void getLineFromFile(char *inputFileName, int inputLineNumber, char *stringValue
 void outputResultToFile(int *resultArray, int arraysize, int *originalArray, int originalArraySize);
 void alg1_enum(int *inputArray, int numberOfElements);
 void alg2_betterEnum(int *inputArray, int numberOfElements);
+void alg3_divideAndConquer(int *inputArray, int numberOfElements);
+int algo3_maxSubArray(int *inputArray, int lowIdx, int highIdx, int *currentLowIdx, int *currentHighIdx, int *highestSum);
+void algo3_maxCrossingSubArray(int *inputArray, int lowIdx, int midIdx, int highIdx, int *crossLow, int *crossHigh, int *crossSum);
 
 #endif
