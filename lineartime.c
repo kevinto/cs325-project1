@@ -1,3 +1,4 @@
+
 /**************************************************************
  * *  Filename: lineartime.c
  * *  Coded by: Frank Eslami
@@ -6,6 +7,7 @@
  * * ***************************************************************/
 
 #include <stdio.h>
+#include <sys/time.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -19,34 +21,32 @@ typedef struct {
 } subarray;
 
 void executeAlgorithm(int input_array[], int input_start_index, int input_end_index);
-void write_to_file(int input_array[], int input_end_index, int max_start_index, 
+void write_to_file(int input_array[], int input_end_index, int max_start_index,
 				   int max_end_index, int max_subarray_sum);
 
 
 int main() {
-    clock_t clock_start, clock_end;
-    double clock_time_used;
-
 	int i;
 	int numberOfElements = 0;
 	char *inputFileName = "MSS_Problems.txt";
 	int numberOfLines = numberOfLinesInFile(inputFileName);
-	
+
 	for (i = 0; i < numberOfLines; i++) {
     	//Read data from file and store in array
 	    numberOfElements = getNumberOfElementsInLine(inputFileName, i);
 	    int *inputArray = malloc(numberOfElements * sizeof(int));
-	
+
 	    //Store file data to inputArray
 	    fillIntArray(inputFileName, i, inputArray, numberOfElements);
 
 	    //Find max sum subarray
-        clock_start = clock();
+		struct timeval start, stop;
+		gettimeofday(&start, NULL);
 	    executeAlgorithm(inputArray, 0, numberOfElements);
-        clock_end = clock();
-        clock_time_used = ((double)(clock_end - clock_start)) / CLOCKS_PER_SEC;
-        printf("cpu used = %f\n", clock_time_used);
-	
+		gettimeofday(&stop, NULL);
+		int time_in_micro = stop.tv_usec - start.tv_usec;
+//        printf("Time used in microseconds = %lu\n", time_in_micro);
+
 	    //Free heap
 	    free(inputArray);
 	}
@@ -79,7 +79,7 @@ void executeAlgorithm(int input_array[], int input_start_index, int input_end_in
 		}
 		else {
 			parent_array.sum = 0;
-		}	
+		}
 
 		if (parent_array.sum > max_subarray.sum) {
 			max_subarray.sum = parent_array.sum;
@@ -89,17 +89,17 @@ void executeAlgorithm(int input_array[], int input_start_index, int input_end_in
 	}
 
     // Output the result to results file
-    write_to_file(input_array, input_end_index, max_subarray.start_index, max_subarray.end_index, 
+    write_to_file(input_array, input_end_index, max_subarray.start_index, max_subarray.end_index,
         max_subarray.sum);
 }
 
 
 //Write input_array, subarray, and max to output file
-void write_to_file(int input_array[], int input_end_index, int max_start_index, 
+void write_to_file(int input_array[], int input_end_index, int max_start_index,
     int max_end_index, int max_subarray_sum) {
     FILE *outputFile = fopen("MSS_Results.txt", "a");
 
-    //Write input_array to file 
+    //Write input_array to file
     fprintf(outputFile, "%c", '[');
     int i;
     for (i = 0; i < input_end_index; i++) {
