@@ -45,6 +45,9 @@ void create_random_array(int n) {
                 fprintf(outputFile, ", %d", rand_num);
             }
         } 
-        fprintf(outputFile, "%c\n", ']');
+		if (i != 9)
+		    fprintf(outputFile, "%c\n", ']');
+		else
+		    fprintf(outputFile, "%c", ']');
     }
 }
