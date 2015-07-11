@@ -120,6 +120,8 @@ void write_to_file(int input_array[], int input_end_index, int max_start_index,
     }
     fprintf(outputFile, "%c\n%d\n", ']', max_subarray_sum);
 
+    fprintf(outputFile, "\n");
+
     fclose(outputFile);
 }
 
